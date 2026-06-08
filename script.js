@@ -1,4 +1,5 @@
 alert("JS 정상 연결");
+
 const cases = [
 
 {
@@ -64,7 +65,7 @@ office:[
 let murderer = "";
 let currentCase = null;
 
-function goStep(1){
+function goStep(){
 
 document.querySelector(".mode-box").style.display = "none";
 
@@ -256,10 +257,6 @@ document.getElementById("resultArea").innerHTML =
 
 }
 
-function goStep(1){
-    document.querySelector(".mode-box").style.display = "none";
-    goStep(1);
-}
 
 function goStep(step){
 

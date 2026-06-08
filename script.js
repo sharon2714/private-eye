@@ -15,20 +15,20 @@ motive:"복수"
 
 const clues = {
 lab:{
-"열쇠":"연구실 서랍을 여는 열쇠 (범행 접근 가능)",
-"메모":"피해자의 마지막 연구 기록"
+"열쇠":"연구실 서랍 열쇠 (누군가 접근 가능)",
+"메모":"피해자와 공동 연구 흔적 존재"
 },
 hall:{
-"CCTV":"사건 당시 이동 기록",
-"발자국":"급히 이동한 흔적"
+"CCTV":"박서연이 사건 직전 이동",
+"발자국":"김도윤 신발과 일치"
 },
 storage:{
-"혈흔":"범행 가능 흔적",
-"장갑":"버려진 장갑"
+"혈흔":"강한 저항 흔적",
+"장갑":"이유진 DNA 검출"
 },
 office:{
-"통화기록":"마지막 통화 대상",
-"메일":"협박 메시지"
+"통화기록":"사망 직전 강민석과 통화",
+"메일":"최현우 협박 메시지"
 }
 };
 
@@ -43,7 +43,6 @@ const suspects = {
 
 let currentCase;
 let murderer;
-let notes = [];
 
 function startGame(){
 document.getElementById("gameArea").style.display="block";
@@ -58,7 +57,7 @@ goStep(1);
 
 function generateCase(){
 currentCase = cases[Math.floor(Math.random()*cases.length)];
-murderer = Object.keys(suspects)[Math.floor(Math.random()*Object.keys(suspects).length)];
+murderer = Object.keys(suspects)[Math.floor(Math.random()*6)];
 
 document.getElementById("caseTitle").innerText=currentCase.title;
 document.getElementById("caseLocation").innerText=currentCase.location;
@@ -69,8 +68,6 @@ document.getElementById("clueArea").innerHTML="";
 document.getElementById("detectiveNotes").innerHTML="";
 document.getElementById("discussionLog").innerHTML="";
 document.getElementById("resultArea").innerHTML="";
-
-notes=[];
 }
 
 function goStep(step){
@@ -90,9 +87,11 @@ div.className="clue-item";
 div.innerText=k;
 
 div.onclick=function(){
-alert(clues[place][k]);
-notes.push(k);
-document.getElementById("detectiveNotes").innerHTML += `<div class='note'>${k}</div>`;
+document.getElementById("clueDetail").innerHTML =
+`<b>${k}</b><br>${clues[place][k]}`;
+
+document.getElementById("detectiveNotes").innerHTML +=
+`<div>${k}</div>`;
 };
 
 document.getElementById("clueArea").appendChild(div);
@@ -100,10 +99,10 @@ document.getElementById("clueArea").appendChild(div);
 }
 
 function question(name){
-let msg = suspects[name][Math.floor(Math.random()*suspects[name].length)];
+let msg = suspects[name][Math.floor(Math.random()*3)];
 
 document.getElementById("discussionLog").innerHTML +=
-`<div class='chat'><b>${name}</b>: ${msg}</div>`;
+`<div><b>${name}</b>: ${msg}</div>`;
 }
 
 function vote(){
@@ -111,6 +110,6 @@ let pick=document.getElementById("voteSelect").value;
 
 document.getElementById("resultArea").innerHTML =
 (pick===murderer)
-? "정답!"
-: "오답! 정답: " + murderer;
+? "정답"
+: "오답 (범인: " + murderer + ")";
 }

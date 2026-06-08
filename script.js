@@ -35,12 +35,12 @@ let murderer = "";
 // =======================
 // START GAME (핵심)
 // =======================
-function startGame(){
+function goStep(){
 
 document.querySelector(".mode-box").style.display = "none";
 document.getElementById("gameArea").style.display = "block";
 
-goStep(1);
+goStep();
 generateCase();
 
 }

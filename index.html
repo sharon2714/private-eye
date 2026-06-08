@@ -17,19 +17,17 @@
     <!-- 시작 화면 -->
     <div class="mode-box">
         <h2>AI Simulation Mode</h2>
-        <p>
-            본 모드는 원래 7인 멀티플레이 게임인 Private Eye를
-            혼자 체험할 수 있도록 구현한 시연용 버전입니다.
-        </p>
+        <p>혼자 즐기는 추리 시뮬레이션 게임</p>
 
-        <button onclick="goStep(1)">
+        <button onclick="startGame()">
             사건 수사 시작
         </button>
     </div>
 
     <!-- 게임 영역 -->
     <div id="gameArea" style="display:none;">
-            <!-- STEP 1 -->
+
+        <!-- STEP 1 -->
         <div id="step1" class="step">
             <h2>사건 발생</h2>
 
@@ -41,11 +39,6 @@
                 <p id="caseMotive"></p>
             </div>
 
-            <div class="detective-card">
-                <h2>탐정 브리핑</h2>
-                <p>당신은 사건 해결을 위해 파견된 탐정입니다.</p>
-            </div>
-
             <button onclick="goStep(2)">조사 시작</button>
         </div>
 
@@ -53,27 +46,27 @@
         <div id="step2" class="step" style="display:none;">
             <h2>조사 단계</h2>
 
-            <button onclick="investigate('lab')">연구실 조사</button>
-            <button onclick="investigate('hall')">복도 조사</button>
-            <button onclick="investigate('storage')">창고 조사</button>
-            <button onclick="investigate('office')">사무실 조사</button>
+            <button onclick="investigate('lab')">연구실</button>
+            <button onclick="investigate('hall')">복도</button>
+            <button onclick="investigate('storage')">창고</button>
+            <button onclick="investigate('office')">사무실</button>
 
             <div id="clueArea"></div>
 
-            <button onclick="goStep(3)">토론으로 이동</button>
+            <button onclick="goStep(3)">토론</button>
         </div>
 
         <!-- STEP 3 -->
         <div id="step3" class="step" style="display:none;">
             <h2>토론</h2>
 
-            <button onclick="askQuestion()">질문하기</button>
-            <button onclick="pressureSuspect()">압박하기</button>
-            <button onclick="accuseSuspect()">의심하기</button>
+            <button onclick="askQuestion()">질문</button>
+            <button onclick="pressureSuspect()">압박</button>
+            <button onclick="accuseSuspect()">의심</button>
 
             <div id="discussionLog"></div>
 
-            <button onclick="goStep(4)">투표로 이동</button>
+            <button onclick="goStep(4)">투표</button>
         </div>
 
         <!-- STEP 4 -->
@@ -90,34 +83,18 @@
             </select>
 
             <button onclick="voteMurderer()">범인 지목</button>
-            <button onclick="goStep(5)">결과 보기</button>
+            <button onclick="goStep(5)">결과</button>
         </div>
 
         <!-- STEP 5 -->
         <div id="step5" class="step" style="display:none;">
             <h2>결과</h2>
-
             <div id="resultArea"></div>
-
             <button onclick="location.reload()">다시 시작</button>
         </div>
 
-                <!-- 공통 UI -->
-        <div class="suspect-box">
-            <h2>용의자 프로필</h2>
-            <!-- 기존 내용 그대로 넣어도 됨 -->
-        </div>
-
-        <div class="note-box">
-            <h3>탐정 수첩</h3>
-            <div id="detectiveNotes">
-                <p>아직 수집된 단서가 없습니다.</p>
-            </div>
-        </div>
-
-    </div> <!-- gameArea end -->
-
-</div> <!-- container end -->
+    </div>
+</div>
 
 <script src="script.js"></script>
 

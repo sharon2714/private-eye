@@ -24,7 +24,15 @@ h1{
 
 .mode-box{
     text-align:center;
-    margin-bottom:20px;
+}
+
+.intro-text{
+    background:#1a1a1a;
+    padding:15px;
+    border-radius:10px;
+    margin:15px 0;
+    color:#ccc;
+    line-height:1.6;
 }
 
 button{
@@ -39,7 +47,6 @@ button{
 
 button:hover{
     transform:translateY(-2px);
-    opacity:0.9;
 }
 
 .case-file{
@@ -47,7 +54,6 @@ button:hover{
     color:black;
     padding:20px;
     border-radius:10px;
-    margin-top:10px;
 }
 
 .step{
@@ -55,24 +61,19 @@ button:hover{
     margin-top:20px;
 }
 
-.investigation-box{
-    margin-bottom:20px;
-}
-
 .clue-item{
     background:#1f1f1f;
     padding:10px;
     margin:5px 0;
     border-left:4px solid #d9c8a0;
-    cursor:pointer;
     border-radius:6px;
+    cursor:pointer;
 }
 
 .note-box{
     background:#111;
     padding:10px;
     margin-top:15px;
-    border-radius:8px;
     border-left:4px solid #d9c8a0;
 }
 
@@ -89,13 +90,12 @@ button:hover{
 }
 
 .suspect-card p{
-    margin:5px 0;
     color:#ccc;
 }
 
-.chat{
-    background:#1e1e1e;
-    padding:10px;
-    margin-top:8px;
-    border-radius:6px;
+.clue-detail-box{
+    background:#111;
+    padding:15px;
+    margin-top:15px;
+    border-left:4px solid #d9c8a0;
 }

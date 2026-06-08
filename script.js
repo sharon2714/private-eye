@@ -255,6 +255,12 @@ document.getElementById("resultArea").innerHTML =
 }
 
 }
+
+function startGame(){
+    document.querySelector(".mode-box").style.display = "none";
+    goStep(1);
+}
+
 function goStep(step){
 
 document.querySelectorAll(".step").forEach(s=>{

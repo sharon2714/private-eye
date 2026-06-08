@@ -11,106 +11,141 @@
 
 <div class="container">
 
-    <h1>PRIVATE EYE</h1>
-    <p class="subtitle">AI Simulation Detective Game</p>
+<h1>PRIVATE EYE</h1>
+<p class="subtitle">AI Detective Simulation Game</p>
 
-    <div class="mode-box">
-        <h2>AI Simulation Mode</h2>
-        <p>혼자 즐기는 추리 시뮬레이션 게임</p>
+<!-- 시작 화면 -->
+<div class="mode-box">
+    <h2>AI Simulation Mode</h2>
+    <p>단서를 수집하고 용의자를 추리해 범인을 밝혀내세요</p>
 
-        <button onclick="startGame()">사건 수사 시작</button>
+    <button onclick="startGame()">사건 수사 시작</button>
+    <button onclick="resetCase()">사건 다시 생성</button>
+</div>
+
+<!-- 게임 영역 -->
+<div id="gameArea" style="display:none;">
+
+<!-- STEP 1 -->
+<div id="step1" class="step">
+
+    <h2>📁 사건 발생</h2>
+
+    <div class="case-file">
+        <h3>CONFIDENTIAL CASE FILE</h3>
+        <p id="caseTitle"></p>
+        <p id="caseLocation"></p>
+        <p id="caseVictim"></p>
+        <p id="caseMotive"></p>
     </div>
 
-    <div id="gameArea" style="display:none;">
+    <button onclick="goStep(2)">조사 시작</button>
+</div>
 
-        <!-- STEP 1 -->
-        <div id="step1" class="step">
-            <h2>사건 발생</h2>
+<!-- STEP 2 -->
+<div id="step2" class="step">
 
-            <div class="case-file">
-                <h3>CONFIDENTIAL CASE FILE</h3>
-                <p id="caseTitle"></p>
-                <p id="caseLocation"></p>
-                <p id="caseVictim"></p>
-                <p id="caseMotive"></p>
-            </div>
+    <h2>🔍 현장 조사</h2>
 
-            <button onclick="goStep(2)">조사 시작</button>
-        </div>
+    <div class="investigation-box">
 
-        <!-- STEP 2 -->
-        <div id="step2" class="step" style="display:none;">
-            <h2>조사 단계</h2>
+        <button onclick="investigate('lab')">연구실</button>
+        <button onclick="investigate('hall')">복도</button>
+        <button onclick="investigate('storage')">창고</button>
+        <button onclick="investigate('office')">사무실</button>
 
-            <button onclick="investigate('lab')">연구실 조사</button>
-            <button onclick="investigate('hall')">복도 조사</button>
-            <button onclick="investigate('storage')">창고 조사</button>
-            <button onclick="investigate('office')">사무실 조사</button>
-
-            <div id="clueArea"></div>
-
-            <button onclick="goStep(3)">토론으로</button>
-        </div>
-
-        <!-- STEP 3 -->
-        <div id="step3" class="step" style="display:none;">
-            <h2>토론</h2>
-
-            <button onclick="askQuestion()">질문</button>
-            <button onclick="pressureSuspect()">압박</button>
-            <button onclick="accuseSuspect()">의심</button>
-
-            <div id="discussionLog"></div>
-
-            <button onclick="goStep(4)">투표</button>
-        </div>
-
-        <!-- STEP 4 -->
-        <div id="step4" class="step" style="display:none;">
-            <h2>최종 투표</h2>
-
-            <select id="voteSelect">
-                <option>김도윤</option>
-                <option>박서연</option>
-                <option>최현우</option>
-                <option>정지민</option>
-                <option>이유진</option>
-                <option>강민석</option>
-            </select>
-
-            <button onclick="voteMurderer()">범인 지목</button>
-            <button onclick="goStep(5)">결과</button>
-        </div>
-
-        <!-- STEP 5 -->
-        <div id="step5" class="step" style="display:none;">
-            <h2>결과</h2>
-            <div id="resultArea"></div>
-            <button onclick="location.reload()">다시 시작</button>
-        </div>
-
-        <!-- 👇 용의자 프로필 (복원) -->
-        <div class="suspect-box">
-            <h2>용의자 프로필</h2>
-
-            <ul>
-                <li>김도윤 - 대학원생 / 연구 조교</li>
-                <li>박서연 - 연구원 / 공동 연구자</li>
-                <li>최현우 - 기자 / 취재 대상</li>
-                <li>정지민 - 대학생 / 피해자 제자</li>
-                <li>이유진 - 연구원 / 경쟁 연구자</li>
-                <li>강민석 - 기업 직원 / 후원사 담당</li>
-            </ul>
-        </div>
-
-        <div class="note-box">
-            <h3>탐정 수첩</h3>
-            <div id="detectiveNotes">
-                <p>아직 단서 없음</p>
-            </div>
-        </div>
-
+        <div id="clueArea"></div>
     </div>
+
+    <div class="note-box">
+        <h3>🗒 탐정 수첩</h3>
+        <div id="detectiveNotes">
+            <p>아직 수집된 단서 없음</p>
+        </div>
+    </div>
+
+    <button onclick="goStep(3)">용의자 조사</button>
+</div>
+
+<!-- STEP 3 -->
+<div id="step3" class="step">
+
+    <h2>👥 용의자 분석</h2>
+
+    <p>각 용의자의 정보를 확인하고 질문하세요</p>
+
+    <div class="suspect-card">
+        <h3>김도윤</h3>
+        <p>직업: 대학원생</p>
+        <p>관계: 연구 조교</p>
+        <p>알리바이: 도서관</p>
+        <button onclick="question('김도윤')">질문</button>
+    </div>
+
+    <div class="suspect-card">
+        <h3>박서연</h3>
+        <p>직업: 연구원</p>
+        <p>관계: 공동 연구자</p>
+        <p>알리바이: 연구실</p>
+        <button onclick="question('박서연')">질문</button>
+    </div>
+
+    <div class="suspect-card">
+        <h3>최현우</h3>
+        <p>직업: 기자</p>
+        <p>관계: 취재 대상</p>
+        <p>알리바이: 카페</p>
+        <button onclick="question('최현우')">질문</button>
+    </div>
+
+    <div class="suspect-card">
+        <h3>정지민</h3>
+        <p>직업: 대학생</p>
+        <p>관계: 제자</p>
+        <p>알리바이: 강의실</p>
+        <button onclick="question('정지민')">질문</button>
+    </div>
+
+    <div class="suspect-card">
+        <h3>이유진</h3>
+        <p>직업: 연구원</p>
+        <p>관계: 경쟁 연구자</p>
+        <p>알리바이: 실험실</p>
+        <button onclick="question('이유진')">질문</button>
+    </div>
+
+    <div class="suspect-card">
+        <h3>강민석</h3>
+        <p>직업: 기업 직원</p>
+        <p>관계: 후원사 담당</p>
+        <p>알리바이: 회의실</p>
+        <button onclick="question('강민석')">질문</button>
+    </div>
+
+    <div id="discussionLog"></div>
+
+    <button onclick="goStep(4)">투표</button>
+</div>
+
+<!-- STEP 4 -->
+<div id="step4" class="step">
+
+    <h2>🗳 최종 투표</h2>
+
+    <select id="voteSelect">
+        <option>김도윤</option>
+        <option>박서연</option>
+        <option>최현우</option>
+        <option>정지민</option>
+        <option>이유진</option>
+        <option>강민석</option>
+    </select>
+
+    <button onclick="vote()">범인 지목</button>
+
+    <div id="resultArea"></div>
+</div>
+
 </div>
 
 <script src="script.js"></script>

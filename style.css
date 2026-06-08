@@ -1,48 +1,46 @@
-body{
-    margin:0;
-    padding:0;
-    background:#111;
-    color:white;
-    font-family:Georgia, serif;
+.clue-card{
+background:#d9c8a0;
+color:black;
+padding:15px;
+margin-top:10px;
+border-radius:8px;
 }
 
-.container{
-    max-width:1000px;
-    margin:auto;
-    padding:40px;
+.chat-card{
+background:#222;
+padding:15px;
+margin-top:10px;
+border-radius:8px;
 }
 
-h1{
-    text-align:center;
-    font-size:60px;
-    letter-spacing:5px;
+.success-box{
+background:#145214;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
 }
 
-.subtitle{
-    text-align:center;
-    color:#ccc;
-    margin-bottom:40px;
+.fail-box{
+background:#6b0000;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
 }
 
-.case-file{
-    background:#d9c8a0;
-    color:black;
-    padding:25px;
-    border-radius:10px;
-    margin-bottom:20px;
+.mode-box{
+background:#222;
+padding:25px;
+border-radius:10px;
+margin-bottom:20px;
+text-align:center;
 }
 
-.detective-card{
-    background:#222;
-    padding:20px;
-    border-radius:10px;
-}
-
-button{
-    background:#8b0000;
-    color:white;
-    border:none;
-    padding:10px 20px;
-    margin-top:10px;
-    cursor:pointer;
+.investigation-box,
+.suspect-box,
+.discussion-box,
+.vote-box{
+background:#1b1b1b;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
 }

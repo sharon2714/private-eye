@@ -2,7 +2,7 @@ body{
 margin:0;
 background:#0f0f0f;
 color:white;
-font-family:'Segoe UI', sans-serif;
+font-family:sans-serif;
 }
 
 .container{
@@ -24,11 +24,6 @@ border-radius:10px;
 color:#ccc;
 }
 
-.status-text{
-color:#d9c8a0;
-margin-top:10px;
-}
-
 button{
 background:#d9c8a0;
 border:none;
@@ -36,7 +31,6 @@ padding:10px 15px;
 margin:5px;
 border-radius:8px;
 cursor:pointer;
-font-weight:bold;
 }
 
 .case-file{
@@ -55,11 +49,17 @@ color:red;
 border:3px solid red;
 padding:5px 10px;
 transform:rotate(-15deg);
-font-weight:bold;
-opacity:0.8;
 }
 
 .step{display:none;}
+
+.suspect-card{
+background:#1a1a1a;
+padding:10px;
+margin:10px 0;
+border-radius:10px;
+border:1px solid #333;
+}
 
 .clue-item{
 background:#1f1f1f;
@@ -76,10 +76,9 @@ margin-top:10px;
 border-left:4px solid #d9c8a0;
 }
 
-.suspect-card{
-background:#1a1a1a;
-padding:15px;
-margin:10px 0;
-border-radius:10px;
-border:1px solid #333;
+.note-box{
+background:#111;
+padding:10px;
+margin-top:10px;
+border-left:4px solid #d9c8a0;
 }

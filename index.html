@@ -14,76 +14,63 @@
 <h1>PRIVATE EYE</h1>
 <p class="subtitle">AI Detective Simulation Game</p>
 
-<!-- 시작 화면 -->
 <div class="mode-box">
-    <h2>AI Simulation Mode</h2>
 
-    <p class="intro-text">
-        이 게임은 7인의 플레이어가 방에 배정되어 추리로 범인을 찾는 게임을 기반으로 제작되었으며,<br>
-        현재 버전은 교수님 체험용 1인 시뮬레이션 프로토타입입니다.
-    </p>
+<h2>AI Simulation Mode</h2>
 
-    <button onclick="startGame()">사건 수사 시작</button>
-    <button onclick="resetCase()">사건 다시 생성</button>
+<p class="intro-text">
+이 게임은 교수님 체험용 1인 추리 시뮬레이션입니다.
+사건마다 용의자와 단서가 모두 다르게 생성됩니다.
+</p>
 
-    <p id="caseStatus" class="status-text"></p>
+<button onclick="startGame()">사건 수사 시작</button>
+<button onclick="resetCase()">사건 다시 생성</button>
+
+<p id="caseStatus"></p>
+
 </div>
 
-<!-- 게임 -->
 <div id="gameArea" style="display:none;">
 
-<!-- STEP 1 -->
 <div id="step1" class="step">
 
-    <h2>📁 사건 발생</h2>
+<h2>📁 사건 파일</h2>
 
-    <div class="case-file">
-
-        <div class="stamp">CONFIDENTIAL</div>
-
-        <h3 id="caseTitle"></h3>
-        <p id="caseLocation"></p>
-        <p id="caseVictim"></p>
-        <p id="caseMotive"></p>
-
-    </div>
-
-    <button onclick="goStep(2)">조사 시작</button>
+<div class="case-file">
+<div class="stamp">CONFIDENTIAL</div>
+<h3 id="caseTitle"></h3>
+<p id="caseLocation"></p>
+<p id="caseVictim"></p>
+<p id="caseMotive"></p>
 </div>
 
-<!-- STEP 2 -->
+<button onclick="goStep(2)">조사</button>
+
+</div>
+
 <div id="step2" class="step">
 
-    <h2>🔍 현장 조사</h2>
+<h2>🔍 현장 조사</h2>
 
-    <div class="investigation-box">
+<div id="clueArea"></div>
 
-        <button onclick="investigate('lab')">연구실</button>
-        <button onclick="investigate('hall')">복도</button>
-        <button onclick="investigate('storage')">창고</button>
-        <button onclick="investigate('office')">사무실</button>
-
-        <div id="clueArea"></div>
-
-    </div>
-
-    <div class="clue-detail-box">
-        <h3>🔎 단서 분석</h3>
-        <div id="clueDetail">단서를 클릭하세요</div>
-    </div>
-
-    <div class="note-box">
-        <h3>🗒 탐정 수첩</h3>
-        <div id="detectiveNotes"></div>
-    </div>
-
-    <button onclick="goStep(3)">용의자 조사</button>
+<div class="clue-detail-box">
+<h3>단서 분석</h3>
+<div id="clueDetail"></div>
 </div>
 
-<!-- STEP 3 -->
+<div class="note-box">
+<h3>탐정 수첩</h3>
+<div id="detectiveNotes"></div>
+</div>
+
+<button onclick="goStep(3)">용의자 조사</button>
+
+</div>
+
 <div id="step3" class="step">
 
-<h2>👥 용의자 조사</h2>
+<h2>👥 용의자</h2>
 
 <div id="suspectArea"></div>
 
@@ -93,14 +80,13 @@
 
 </div>
 
-<!-- STEP 4 -->
 <div id="step4" class="step">
 
-<h2>🗳 최종 투표</h2>
+<h2>🗳 투표</h2>
 
 <select id="voteSelect"></select>
 
-<button onclick="vote()">범인 지목</button>
+<button onclick="vote()">선택</button>
 
 <div id="resultArea"></div>
 
@@ -109,5 +95,6 @@
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>

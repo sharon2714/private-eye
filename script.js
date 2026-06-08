@@ -1,29 +1,88 @@
-alert("JS 정상 연결");
 
 const cases = [
-
 {
 title:"사라진 연구자료 사건",
 location:"대학교 연구실",
 victim:"김민수 교수",
 motive:"연구비 경쟁"
 },
-
 {
 title:"별장 살인 사건",
 location:"외곽 별장",
 victim:"사업가 박준혁",
 motive:"금전 갈등"
 },
-
 {
 title:"호텔 독살 사건",
 location:"시내 호텔",
 victim:"배우 이현우",
 motive:"복수"
 }
-
 ];
+
+const suspects = [
+"김도윤",
+"박서연",
+"최현우",
+"정지민",
+"이유진",
+"강민석"
+];
+
+let currentCase = null;
+let murderer = "";
+
+// =======================
+// START GAME (핵심)
+// =======================
+function startGame(){
+
+document.querySelector(".mode-box").style.display = "none";
+document.getElementById("gameArea").style.display = "block";
+
+goStep(1);
+generateCase();
+
+}
+
+// =======================
+// STEP SYSTEM (핵심)
+// =======================
+function goStep(step){
+
+for(let i=1;i<=5;i++){
+let el = document.getElementById("step"+i);
+if(el) el.style.display = "none";
+}
+
+let current = document.getElementById("step"+step);
+if(current) current.style.display = "block";
+
+}
+
+// =======================
+// CASE GENERATION
+// =======================
+function generateCase(){
+
+currentCase = cases[Math.floor(Math.random()*cases.length)];
+murderer = suspects[Math.floor(Math.random()*suspects.length)];
+
+document.getElementById("caseTitle").innerText =
+"사건명: " + currentCase.title;
+
+document.getElementById("caseLocation").innerText =
+"장소: " + currentCase.location;
+
+document.getElementById("caseVictim").innerText =
+"피해자: " + currentCase.victim;
+
+document.getElementById("caseMotive").innerText =
+"동기: " + currentCase.motive;
+
+console.log("범인:", murderer);
+
+}
 
 const suspects = [
 "김도윤",

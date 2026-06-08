@@ -14,17 +14,13 @@
     <h1>PRIVATE EYE</h1>
     <p class="subtitle">AI Simulation Detective Game</p>
 
-    <!-- 시작 화면 -->
     <div class="mode-box">
         <h2>AI Simulation Mode</h2>
         <p>혼자 즐기는 추리 시뮬레이션 게임</p>
 
-        <button onclick="startGame()">
-            사건 수사 시작
-        </button>
+        <button onclick="startGame()">사건 수사 시작</button>
     </div>
 
-    <!-- 게임 영역 -->
     <div id="gameArea" style="display:none;">
 
         <!-- STEP 1 -->
@@ -46,14 +42,14 @@
         <div id="step2" class="step" style="display:none;">
             <h2>조사 단계</h2>
 
-            <button onclick="investigate('lab')">연구실</button>
-            <button onclick="investigate('hall')">복도</button>
-            <button onclick="investigate('storage')">창고</button>
-            <button onclick="investigate('office')">사무실</button>
+            <button onclick="investigate('lab')">연구실 조사</button>
+            <button onclick="investigate('hall')">복도 조사</button>
+            <button onclick="investigate('storage')">창고 조사</button>
+            <button onclick="investigate('office')">사무실 조사</button>
 
             <div id="clueArea"></div>
 
-            <button onclick="goStep(3)">토론</button>
+            <button onclick="goStep(3)">토론으로</button>
         </div>
 
         <!-- STEP 3 -->
@@ -91,6 +87,27 @@
             <h2>결과</h2>
             <div id="resultArea"></div>
             <button onclick="location.reload()">다시 시작</button>
+        </div>
+
+        <!-- 👇 용의자 프로필 (복원) -->
+        <div class="suspect-box">
+            <h2>용의자 프로필</h2>
+
+            <ul>
+                <li>김도윤 - 대학원생 / 연구 조교</li>
+                <li>박서연 - 연구원 / 공동 연구자</li>
+                <li>최현우 - 기자 / 취재 대상</li>
+                <li>정지민 - 대학생 / 피해자 제자</li>
+                <li>이유진 - 연구원 / 경쟁 연구자</li>
+                <li>강민석 - 기업 직원 / 후원사 담당</li>
+            </ul>
+        </div>
+
+        <div class="note-box">
+            <h3>탐정 수첩</h3>
+            <div id="detectiveNotes">
+                <p>아직 단서 없음</p>
+            </div>
         </div>
 
     </div>

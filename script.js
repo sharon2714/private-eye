@@ -115,7 +115,10 @@ document.getElementById("clueArea").innerHTML +=
 📄 ${randomClue}
 </div>
 `;
-
+document.getElementById("detectiveNotes").innerHTML +=
+`
+<p>✔ ${randomClue}</p>
+`;
 }
 
 function askQuestion(){

@@ -1,10 +1,10 @@
-// ==========================
-// 🎮 FIXED CORE GAME SYSTEM
-// ==========================
-
 const suspectsList = [
 "김도윤","박서연","최현우","정지민","이유진","강민석"
 ];
+
+// =========================
+// 🎮 FULL STORY DATA
+// =========================
 
 const stories = [
 {
@@ -14,30 +14,83 @@ location:"대학교 연구실",
 victim:"김민수 교수",
 motive:"연구비 경쟁"
 },
+
 suspects:{
 "김도윤":{
-base:"논문을 준비 중이던 대학원생",
-lies:["저는 도서관에 있었습니다","그 시간엔 연구실에 없었습니다","자료 정리 중이었어요"]
+role:"대학원생",
+statements:[
+"저는 도서관에 있었습니다.",
+"그 시간엔 연구실에 없었습니다.",
+"자료 정리 중이었습니다."
+]
 },
+
 "박서연":{
-base:"공동 연구자",
-lies:["회의 중이었습니다","저는 관련 없습니다","데이터 작업 중이었어요"]
+role:"공동 연구자",
+statements:[
+"회의 중이었습니다.",
+"저는 데이터 작업 중이었습니다.",
+"그 일과 관련 없습니다."
+]
 },
+
 "이유진":{
-base:"경쟁 연구원",
-lies:["장비 점검 중이었습니다","실험하고 있었어요","그건 오해입니다"]
+role:"경쟁 연구원",
+statements:[
+"장비 점검 중이었습니다.",
+"실험 중이었습니다.",
+"저는 연구실에 있었어요."
+]
+},
+
+"최현우":{
+role:"기자",
+statements:[
+"취재 중이었습니다.",
+"카페에 있었어요.",
+"기사 작성 중이었습니다."
+]
+},
+
+"정지민":{
+role:"대학생",
+statements:[
+"강의 중이었습니다.",
+"과제 중이었어요.",
+"학교에 있었습니다."
+]
+},
+
+"강민석":{
+role:"기업 직원",
+statements:[
+"회의 중이었습니다.",
+"호텔 방문은 업무였습니다.",
+"출장 중이었습니다."
+]
 }
 },
-clues:{
-lab:{
-"USB":"삭제된 연구 데이터 흔적 (김도윤 접근 가능)",
-"노트":"박서연 수정 흔적 발견"
+
+// 🔥 단서 = 처음부터 분석용 구조
+clues:[
+{
+title:"USB",
+desc:"삭제된 연구 데이터 흔적 (김도윤 접근 가능)"
 },
-office:{
-"메일":"이유진과 연구비 갈등",
-"로그":"23:14 접근 기록"
+{
+title:"노트",
+desc:"박서연 수정 흔적 발견"
+},
+{
+title:"로그 기록",
+desc:"23:14 연구실 접근 기록"
+},
+{
+title:"메일",
+desc:"이유진과 연구비 갈등 정황"
 }
-},
+],
+
 murderer:"박서연"
 },
 
@@ -48,41 +101,97 @@ location:"시내 호텔",
 victim:"배우 이현우",
 motive:"복수"
 },
+
 suspects:{
 "최현우":{
-base:"기자",
-lies:["취재 중이었습니다","카페에 있었어요","기사 작성 중"]
+role:"기자",
+statements:[
+"취재 중이었습니다.",
+"카페에 있었습니다.",
+"기사 작성 중이었습니다."
+]
 },
+
 "정지민":{
-base:"대학생",
-lies:["강의 중이었습니다","과제 중이었어요","학교에 있었어요"]
+role:"대학생",
+statements:[
+"강의 중이었습니다.",
+"과제 중이었습니다.",
+"학교에 있었습니다."
+]
 },
+
 "강민석":{
-base:"기업 직원",
-lies:["회의 중이었습니다","출장 중이었어요","호텔 방문은 업무였습니다"]
+role:"기업 직원",
+statements:[
+"회의 중이었습니다.",
+"호텔 방문은 업무였습니다.",
+"출장 중이었습니다."
+]
+},
+
+"김도윤":{
+role:"대학원생",
+statements:[
+"저는 그 시간에 다른 연구 중이었습니다.",
+"현장과 무관합니다.",
+"도서관에 있었습니다."
+]
+},
+
+"이유진":{
+role:"연구원",
+statements:[
+"실험 중이었습니다.",
+"장비 점검 중이었습니다.",
+"저는 관련 없습니다."
+]
+},
+
+"박서연":{
+role:"연구자",
+statements:[
+"저는 그날 회의 중이었습니다.",
+"호텔에는 없었습니다.",
+"오해입니다."
+]
 }
 },
-clues:{
-hall:{
-"CCTV":"강민석 호텔 출입 확인",
-"발자국":"정지민 신발 패턴"
+
+clues:[
+{
+title:"CCTV",
+desc:"강민석 호텔 출입 확인"
 },
-room:{
-"잔":"독성 물질 검출",
-"전화":"최현우 마지막 통화"
+{
+title:"발자국",
+desc:"정지민 신발 패턴 일치"
+},
+{
+title:"독성 잔",
+desc:"고농도 독성 물질 검출"
+},
+{
+title:"통화 기록",
+desc:"최현우 마지막 통화"
 }
-},
+],
+
 murderer:"강민석"
 }
 ];
+
+// =========================
+// STATE
+// =========================
 
 let current;
 let murderer;
 let usedClues = new Set();
 
-// ==========================
+// =========================
 // START
-// ==========================
+// =========================
 
 function startGame(){
 document.getElementById("gameArea").style.display="block";
@@ -90,19 +199,19 @@ generate();
 goStep(1);
 }
 
-// ==========================
+// =========================
 // RESET
-// ==========================
+// =========================
 
 function resetCase(){
 generate();
-document.getElementById("caseStatus").innerText="🔄 사건 재생성 완료";
+document.getElementById("caseStatus").innerText="🔄 새로운 사건 생성";
 goStep(1);
 }
 
-// ==========================
+// =========================
 // GENERATE
-// ==========================
+// =========================
 
 function generate(){
 
@@ -117,15 +226,14 @@ document.getElementById("caseVictim").innerText=current.case.victim;
 document.getElementById("caseMotive").innerText=current.case.motive;
 
 // reset UI
-document.getElementById("clueArea").innerHTML="";
-document.getElementById("clueDetail").innerHTML="단서를 클릭하세요";
+document.getElementById("clueDetail").innerText="단서를 선택하세요";
 document.getElementById("detectiveNotes").innerHTML="";
 document.getElementById("discussionLog").innerHTML="";
 document.getElementById("resultArea").innerHTML="";
 
-// ==========================
-// SUSPECT UI (무조건 6명 고정)
-// ==========================
+// =========================
+// SUSPECT RENDER (항상 6명)
+// =========================
 
 let suspectHTML="";
 let voteHTML="";
@@ -135,19 +243,36 @@ suspectsList.forEach(name=>{
 suspectHTML+=`
 <div class="suspect-card">
 <h3>${name}</h3>
+<p>${current.suspects[name]?.role || "불명"}</p>
 <button onclick="question('${name}')">질문</button>
-</div>`;
+</div>
+`;
 
 voteHTML+=`<option>${name}</option>`;
 });
 
 document.getElementById("suspectArea").innerHTML=suspectHTML;
 document.getElementById("voteSelect").innerHTML=voteHTML;
+
+// =========================
+// CLUE RENDER (처음부터 보이게)
+// =========================
+
+let clueHTML="";
+current.clues.forEach(c=>{
+clueHTML+=`
+<div class="clue-item" onclick="showClue('${c.title}','${c.desc}')">
+<b>${c.title}</b>
+</div>
+`;
+});
+
+document.getElementById("clueArea").innerHTML=clueHTML;
 }
 
-// ==========================
-// STEP CONTROL
-// ==========================
+// =========================
+// STEP
+// =========================
 
 function goStep(n){
 for(let i=1;i<=4;i++){
@@ -157,66 +282,39 @@ if(el) el.style.display="none";
 document.getElementById("step"+n).style.display="block";
 }
 
-// ==========================
-// INVESTIGATION (FIXED)
-// ==========================
+// =========================
+// CLUE DETAIL (핵심)
+// =========================
 
-function investigate(area){
-
-const clueArea=document.getElementById("clueArea");
-clueArea.innerHTML="";
-
-const clues=current.clues[area];
-if(!clues){
-clueArea.innerHTML="<div>단서 없음</div>";
-return;
-}
-
-Object.keys(clues).forEach(k=>{
-
-let div=document.createElement("div");
-div.className="clue-item";
-div.innerText=k;
-
-div.onclick=function(){
+function showClue(title,desc){
 
 document.getElementById("clueDetail").innerHTML=
-`<b>${k}</b><br>${clues[k]}`;
+`<b>${title}</b><br>${desc}`;
 
-if(!usedClues.has(k)){
-usedClues.add(k);
+if(!usedClues.has(title)){
+usedClues.add(title);
 let note=document.createElement("div");
-note.innerText="✔ "+k;
+note.innerText="✔ "+title;
 document.getElementById("detectiveNotes").appendChild(note);
 }
-};
-
-clueArea.appendChild(div);
-});
 }
 
-// ==========================
-// INTERVIEW (고급형 복구)
-// ==========================
+// =========================
+// INTERVIEW (완전 사건 기반)
+// =========================
 
 function question(name){
 
 let data=current.suspects[name];
-if(!data){
-document.getElementById("discussionLog").innerHTML+=
-`<div><b>${name}</b>: 저는 관련 없습니다.</div>`;
-return;
-}
-
-let msg=data.lies[Math.floor(Math.random()*data.lies.length)];
+let msg=data.statements[Math.floor(Math.random()*data.statements.length)];
 
 document.getElementById("discussionLog").innerHTML+=
-`<div><b>${name}</b> (${data.base}): ${msg}</div>`;
+`<div><b>${name} (${data.role})</b>: ${msg}</div>`;
 }
 
-// ==========================
+// =========================
 // VOTE
-// ==========================
+// =========================
 
 function vote(){
 

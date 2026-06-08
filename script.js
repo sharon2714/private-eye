@@ -33,7 +33,7 @@ let currentCase = null;
 let murderer = "";
 
 // =======================
-// go Step(1) (핵심)
+// START GAME (핵심)
 // =======================
 function goStep(1){
 

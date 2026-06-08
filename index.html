@@ -19,14 +19,14 @@
     <h2>AI Simulation Mode</h2>
 
     <p class="intro-text">
-        이 게임은 원래 7인의 플레이어가 랜덤으로 방에 배정되어<br>
-        채팅과 추리를 통해 범인을 찾는 멀티플레이 기반 추리 게임입니다.<br><br>
-
-        현재 버전은 <b>교수님의 체험을 위해 제작된 1인 시뮬레이션 프로토타입</b>입니다.
+        이 게임은 7인의 플레이어가 방에 배정되어 추리로 범인을 찾는 게임을 기반으로 제작되었으며,<br>
+        현재 버전은 교수님 체험용 1인 시뮬레이션 프로토타입입니다.
     </p>
 
     <button onclick="startGame()">사건 수사 시작</button>
     <button onclick="resetCase()">사건 다시 생성</button>
+
+    <p id="caseStatus" class="status-text"></p>
 </div>
 
 <!-- 게임 -->
@@ -38,11 +38,14 @@
     <h2>📁 사건 발생</h2>
 
     <div class="case-file">
-        <h3>CONFIDENTIAL CASE FILE</h3>
-        <p id="caseTitle"></p>
+
+        <div class="stamp">CONFIDENTIAL</div>
+
+        <h3 id="caseTitle"></h3>
         <p id="caseLocation"></p>
         <p id="caseVictim"></p>
         <p id="caseMotive"></p>
+
     </div>
 
     <button onclick="goStep(2)">조사 시작</button>
@@ -80,84 +83,27 @@
 <!-- STEP 3 -->
 <div id="step3" class="step">
 
-    <h2>👥 용의자 조사</h2>
+<h2>👥 용의자 조사</h2>
 
-    <!-- 김도윤 -->
-    <div class="suspect-card">
-        <h3>김도윤</h3>
-        <p>직업: 대학원생</p>
-        <p>관계: 연구 조교</p>
-        <p>알리바이: 도서관에서 논문 작업</p>
-        <button onclick="question('김도윤')">질문</button>
-    </div>
+<div id="suspectArea"></div>
 
-    <!-- 박서연 -->
-    <div class="suspect-card">
-        <h3>박서연</h3>
-        <p>직업: 연구원</p>
-        <p>관계: 공동 연구자</p>
-        <p>알리바이: 연구실 회의 및 데이터 정리</p>
-        <button onclick="question('박서연')">질문</button>
-    </div>
+<div id="discussionLog"></div>
 
-    <!-- 최현우 -->
-    <div class="suspect-card">
-        <h3>최현우</h3>
-        <p>직업: 기자</p>
-        <p>관계: 취재 대상</p>
-        <p>알리바이: 카페에서 인터뷰 기사 작성</p>
-        <button onclick="question('최현우')">질문</button>
-    </div>
+<button onclick="goStep(4)">투표</button>
 
-    <!-- 정지민 -->
-    <div class="suspect-card">
-        <h3>정지민</h3>
-        <p>직업: 대학생</p>
-        <p>관계: 제자</p>
-        <p>알리바이: 강의 수업 및 과제 수행</p>
-        <button onclick="question('정지민')">질문</button>
-    </div>
-
-    <!-- 이유진 -->
-    <div class="suspect-card">
-        <h3>이유진</h3>
-        <p>직업: 연구원</p>
-        <p>관계: 경쟁 연구자</p>
-        <p>알리바이: 실험실 장비 점검</p>
-        <button onclick="question('이유진')">질문</button>
-    </div>
-
-    <!-- 강민석 -->
-    <div class="suspect-card">
-        <h3>강민석</h3>
-        <p>직업: 기업 직원</p>
-        <p>관계: 후원사 담당</p>
-        <p>알리바이: 회의 및 보고 업무</p>
-        <button onclick="question('강민석')">질문</button>
-    </div>
-
-    <div id="discussionLog"></div>
-
-    <button onclick="goStep(4)">투표</button>
 </div>
 
 <!-- STEP 4 -->
 <div id="step4" class="step">
 
-    <h2>🗳 최종 투표</h2>
+<h2>🗳 최종 투표</h2>
 
-    <select id="voteSelect">
-        <option>김도윤</option>
-        <option>박서연</option>
-        <option>최현우</option>
-        <option>정지민</option>
-        <option>이유진</option>
-        <option>강민석</option>
-    </select>
+<select id="voteSelect"></select>
 
-    <button onclick="vote()">범인 지목</button>
+<button onclick="vote()">범인 지목</button>
 
-    <div id="resultArea"></div>
+<div id="resultArea"></div>
+
 </div>
 
 </div>

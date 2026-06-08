@@ -1,131 +1,40 @@
 body{
     margin:0;
-    padding:0;
     background:#0f0f0f;
     color:white;
     font-family:'Segoe UI', sans-serif;
 }
 
 .container{
-    width:90%;
     max-width:1100px;
     margin:auto;
-    padding:40px 20px;
+    padding:30px;
 }
 
 h1{
     text-align:center;
-    font-size:70px;
-    letter-spacing:8px;
     color:#d9c8a0;
-    margin-bottom:10px;
-    text-shadow:0 0 20px rgba(217,200,160,0.3);
+    letter-spacing:6px;
 }
 
 .subtitle{
     text-align:center;
-    color:#9d9d9d;
-    margin-bottom:40px;
+    color:#aaa;
 }
 
 .mode-box{
-    background:#1a1a1a;
-    border:1px solid #333;
-    border-radius:15px;
-    padding:35px;
     text-align:center;
-    margin-bottom:30px;
-}
-
-.mode-box h2{
-    color:#d9c8a0;
-}
-
-.case-file{
-    position:relative;
-    background:#d9c8a0;
-    color:black;
-    padding:30px;
-    border-radius:15px;
-    margin-bottom:25px;
-    box-shadow:0 0 30px rgba(0,0,0,0.5);
-    transition:0.3s;
-}
-
-.case-file::before{
-    content:"CONFIDENTIAL";
-    position:absolute;
-    top:15px;
-    right:20px;
-    color:#8b0000;
-    border:3px solid #8b0000;
-    padding:6px 12px;
-    font-weight:bold;
-    transform:rotate(-12deg);
-    opacity:0.8;
-}
-
-.case-file:hover{
-    transform:scale(1.01);
-}
-
-.detective-card{
-    background:#1a1a1a;
-    border-left:6px solid #d9c8a0;
-    padding:20px;
-    border-radius:12px;
-    margin-bottom:25px;
-}
-
-.detective-card h2{
-    color:#d9c8a0;
-}
-
-.progress-box{
-    background:#1a1a1a;
-    padding:20px;
-    border-radius:12px;
-    margin-bottom:25px;
-}
-
-.progress-box h2{
-    color:#d9c8a0;
-}
-
-.progress-step{
-    margin:12px 0;
-    padding:12px;
-    background:#252525;
-    border-radius:8px;
-}
-.investigation-box,
-.suspect-box,
-.discussion-box,
-.vote-box{
-    background:#1a1a1a;
-    padding:25px;
-    border-radius:15px;
-    margin-top:20px;
-    border:1px solid #2d2d2d;
-}
-
-.investigation-box h2,
-.suspect-box h2,
-.discussion-box h2,
-.vote-box h2{
-    color:#d9c8a0;
+    margin-bottom:20px;
 }
 
 button{
     background:#d9c8a0;
-    color:black;
     border:none;
-    padding:12px 18px;
+    padding:10px 15px;
     margin:5px;
     border-radius:8px;
     cursor:pointer;
-    font-weight:600;
-    transition:0.2s;
+    font-weight:bold;
 }
 
 button:hover{
@@ -133,81 +42,60 @@ button:hover{
     opacity:0.9;
 }
 
-button:active{
-    transform:translateY(0px);
-    opacity:0.8;
-}
-
-select{
-    padding:12px;
-    border-radius:8px;
-    border:none;
-}
-
-.clue-card{
-    background:#efe2bc;
-    color:black;
-    padding:15px;
-    margin-top:12px;
-    border-left:6px solid #8b0000;
-    border-radius:8px;
-}
-
-.chat-card{
-    background:#272727;
-    padding:15px;
-    margin-top:10px;
-    border-radius:10px;
-    border-left:4px solid #d9c8a0;
-}
-
-.success-box{
-    background:#145214;
-    padding:25px;
-    border-radius:12px;
-    margin-top:20px;
-    text-align:center;
-}
-
-.fail-box{
-    background:#6b0000;
-    padding:25px;
-    border-radius:12px;
-    margin-top:20px;
-    text-align:center;
-}
-
-.note-box{
-    background:#efe2bc;
+.case-file{
+    background:#d9c8a0;
     color:black;
     padding:20px;
     border-radius:10px;
-    margin-top:20px;
-}
-
-.note-box h3{
-    margin-top:0;
-}
-
-.footer-note{
-    margin-top:40px;
-    text-align:center;
-    color:#888;
-    font-size:14px;
+    margin-top:10px;
 }
 
 .step{
     display:none;
-    animation:fadeIn 0.25s ease;
+    margin-top:20px;
 }
 
-@keyframes fadeIn{
-    from{
-        opacity:0;
-        transform:translateY(10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.investigation-box{
+    margin-bottom:20px;
+}
+
+.clue-item{
+    background:#1f1f1f;
+    padding:10px;
+    margin:5px 0;
+    border-left:4px solid #d9c8a0;
+    cursor:pointer;
+    border-radius:6px;
+}
+
+.note-box{
+    background:#111;
+    padding:10px;
+    margin-top:15px;
+    border-radius:8px;
+    border-left:4px solid #d9c8a0;
+}
+
+.suspect-card{
+    background:#1a1a1a;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #333;
+}
+
+.suspect-card h3{
+    color:#d9c8a0;
+}
+
+.suspect-card p{
+    margin:5px 0;
+    color:#ccc;
+}
+
+.chat{
+    background:#1e1e1e;
+    padding:10px;
+    margin-top:8px;
+    border-radius:6px;
 }

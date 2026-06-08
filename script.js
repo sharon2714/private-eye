@@ -1,3 +1,4 @@
+alert("JS 정상 연결");
 const cases = [
 
 {

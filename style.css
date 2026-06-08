@@ -3,7 +3,7 @@ body{
     padding:0;
     background:#0f0f0f;
     color:white;
-    font-family:'Segoe UI',sans-serif;
+    font-family:'Segoe UI', sans-serif;
 }
 
 .container{
@@ -49,6 +49,7 @@ h1{
     border-radius:15px;
     margin-bottom:25px;
     box-shadow:0 0 30px rgba(0,0,0,0.5);
+    transition:0.3s;
 }
 
 .case-file::before{
@@ -62,6 +63,10 @@ h1{
     font-weight:bold;
     transform:rotate(-12deg);
     opacity:0.8;
+}
+
+.case-file:hover{
+    transform:scale(1.01);
 }
 
 .detective-card{
@@ -93,7 +98,6 @@ h1{
     background:#252525;
     border-radius:8px;
 }
-
 .investigation-box,
 .suspect-box,
 .discussion-box,
@@ -126,6 +130,12 @@ button{
 
 button:hover{
     transform:translateY(-2px);
+    opacity:0.9;
+}
+
+button:active{
+    transform:translateY(0px);
+    opacity:0.8;
 }
 
 select{
@@ -167,22 +177,6 @@ select{
     text-align:center;
 }
 
-ul{
-    padding-left:20px;
-}
-
-li{
-    margin-bottom:10px;
-}
-
-.suspect-box li{
-    background:#252525;
-    padding:12px;
-    border-radius:8px;
-    list-style:none;
-    margin-bottom:8px;
-}
-
 .note-box{
     background:#efe2bc;
     color:black;
@@ -201,4 +195,19 @@ li{
     color:#888;
     font-size:14px;
 }
-.step { display:none; }
+
+.step{
+    display:none;
+    animation:fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}

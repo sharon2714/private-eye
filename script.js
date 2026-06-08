@@ -64,7 +64,7 @@ office:[
 let murderer = "";
 let currentCase = null;
 
-function startGame(){
+function goStep(1){
 
 document.querySelector(".mode-box").style.display = "none";
 
@@ -256,7 +256,7 @@ document.getElementById("resultArea").innerHTML =
 
 }
 
-function startGame(){
+function goStep(1){
     document.querySelector(".mode-box").style.display = "none";
     goStep(1);
 }

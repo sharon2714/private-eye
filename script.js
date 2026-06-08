@@ -1,6 +1,10 @@
-// =========================
-// 🔥 CASE DATA (완전 독립 구조)
-// =========================
+// ==========================
+// 🎮 FIXED CORE GAME SYSTEM
+// ==========================
+
+const suspectsList = [
+"김도윤","박서연","최현우","정지민","이유진","강민석"
+];
 
 const stories = [
 {
@@ -11,18 +15,27 @@ victim:"김민수 교수",
 motive:"연구비 경쟁"
 },
 suspects:{
-"김도윤":["도서관에서 논문 작업 중","연구실 출입 없음","자료 정리 중"],
-"박서연":["회의 중 데이터 분석","실험 진행 중","보고서 작성 중"],
-"이유진":["장비 점검 중","실험 진행 중","연구실에 있었음"]
+"김도윤":{
+base:"논문을 준비 중이던 대학원생",
+lies:["저는 도서관에 있었습니다","그 시간엔 연구실에 없었습니다","자료 정리 중이었어요"]
+},
+"박서연":{
+base:"공동 연구자",
+lies:["회의 중이었습니다","저는 관련 없습니다","데이터 작업 중이었어요"]
+},
+"이유진":{
+base:"경쟁 연구원",
+lies:["장비 점검 중이었습니다","실험하고 있었어요","그건 오해입니다"]
+}
 },
 clues:{
 lab:{
-"USB":"김도윤 연구 데이터 저장 장치 (삭제 흔적 존재)",
-"노트":"박서연의 수정 흔적이 남아 있음"
+"USB":"삭제된 연구 데이터 흔적 (김도윤 접근 가능)",
+"노트":"박서연 수정 흔적 발견"
 },
 office:{
-"메일":"이유진과 연구비 갈등 정황",
-"로그":"23:14 연구실 접근 기록"
+"메일":"이유진과 연구비 갈등",
+"로그":"23:14 접근 기록"
 }
 },
 murderer:"박서연"
@@ -36,35 +49,40 @@ victim:"배우 이현우",
 motive:"복수"
 },
 suspects:{
-"최현우":["취재 중 기사 작성","카페에서 인터뷰","자료 정리 중"],
-"정지민":["강의 중","과제 제출 중","학교에 있었음"],
-"강민석":["회의 중 호텔 방문","업무 보고 중","출장 중"]
+"최현우":{
+base:"기자",
+lies:["취재 중이었습니다","카페에 있었어요","기사 작성 중"]
+},
+"정지민":{
+base:"대학생",
+lies:["강의 중이었습니다","과제 중이었어요","학교에 있었어요"]
+},
+"강민석":{
+base:"기업 직원",
+lies:["회의 중이었습니다","출장 중이었어요","호텔 방문은 업무였습니다"]
+}
 },
 clues:{
 hall:{
-"CCTV":"강민석 호텔 3층 출입 확인",
-"발자국":"정지민 신발 패턴과 일치"
+"CCTV":"강민석 호텔 출입 확인",
+"발자국":"정지민 신발 패턴"
 },
 room:{
-"잔":"독성 물질 검출 (고농도)",
-"전화":"최현우 마지막 통화 기록"
+"잔":"독성 물질 검출",
+"전화":"최현우 마지막 통화"
 }
 },
 murderer:"강민석"
 }
 ];
 
-// =========================
-// 🔥 GLOBAL STATE
-// =========================
-
 let current;
 let murderer;
 let usedClues = new Set();
 
-// =========================
-// 🎮 GAME START
-// =========================
+// ==========================
+// START
+// ==========================
 
 function startGame(){
 document.getElementById("gameArea").style.display="block";
@@ -72,16 +90,19 @@ generate();
 goStep(1);
 }
 
+// ==========================
+// RESET
+// ==========================
+
 function resetCase(){
 generate();
-document.getElementById("caseStatus").innerText =
-"🔄 새로운 사건이 생성되었습니다";
+document.getElementById("caseStatus").innerText="🔄 사건 재생성 완료";
 goStep(1);
 }
 
-// =========================
-// 🧠 CASE GENERATION
-// =========================
+// ==========================
+// GENERATE
+// ==========================
 
 function generate(){
 
@@ -89,7 +110,7 @@ current = stories[Math.floor(Math.random()*stories.length)];
 murderer = current.murderer;
 usedClues.clear();
 
-// case UI
+// case info
 document.getElementById("caseTitle").innerText=current.case.title;
 document.getElementById("caseLocation").innerText=current.case.location;
 document.getElementById("caseVictim").innerText=current.case.victim;
@@ -102,27 +123,31 @@ document.getElementById("detectiveNotes").innerHTML="";
 document.getElementById("discussionLog").innerHTML="";
 document.getElementById("resultArea").innerHTML="";
 
-// suspects render
-let s="";
-let v="";
+// ==========================
+// SUSPECT UI (무조건 6명 고정)
+// ==========================
 
-Object.keys(current.suspects).forEach(name=>{
-s+=`
+let suspectHTML="";
+let voteHTML="";
+
+suspectsList.forEach(name=>{
+
+suspectHTML+=`
 <div class="suspect-card">
 <h3>${name}</h3>
 <button onclick="question('${name}')">질문</button>
-</div>
-`;
-v+=`<option>${name}</option>`;
+</div>`;
+
+voteHTML+=`<option>${name}</option>`;
 });
 
-document.getElementById("suspectArea").innerHTML=s;
-document.getElementById("voteSelect").innerHTML=v;
+document.getElementById("suspectArea").innerHTML=suspectHTML;
+document.getElementById("voteSelect").innerHTML=voteHTML;
 }
 
-// =========================
-// 📌 STEP CONTROL
-// =========================
+// ==========================
+// STEP CONTROL
+// ==========================
 
 function goStep(n){
 for(let i=1;i<=4;i++){
@@ -132,43 +157,36 @@ if(el) el.style.display="none";
 document.getElementById("step"+n).style.display="block";
 }
 
-// =========================
-// 🔍 INVESTIGATION (핵심 FIX)
-// =========================
+// ==========================
+// INVESTIGATION (FIXED)
+// ==========================
 
 function investigate(area){
 
-const clueArea = document.getElementById("clueArea");
-
-// 👉 중요: 매번 초기화 (안 하면 안 뜨는 문제 발생)
+const clueArea=document.getElementById("clueArea");
 clueArea.innerHTML="";
 
-const clues = current.clues[area];
-
-// 방어
+const clues=current.clues[area];
 if(!clues){
 clueArea.innerHTML="<div>단서 없음</div>";
 return;
 }
 
-Object.keys(clues).forEach(key=>{
+Object.keys(clues).forEach(k=>{
 
 let div=document.createElement("div");
 div.className="clue-item";
-div.innerText=key;
+div.innerText=k;
 
 div.onclick=function(){
 
-// 🔎 단서 분석 표시
 document.getElementById("clueDetail").innerHTML=
-`<b>${key}</b><br>${clues[key]}`;
+`<b>${k}</b><br>${clues[k]}`;
 
-// 🗒 수첩 자동 기록 (중복 방지)
-if(!usedClues.has(key)){
-usedClues.add(key);
-
+if(!usedClues.has(k)){
+usedClues.add(k);
 let note=document.createElement("div");
-note.innerText="✔ "+key;
+note.innerText="✔ "+k;
 document.getElementById("detectiveNotes").appendChild(note);
 }
 };
@@ -177,22 +195,28 @@ clueArea.appendChild(div);
 });
 }
 
-// =========================
-// 💬 SUSPECT QUESTION SYSTEM
-// =========================
+// ==========================
+// INTERVIEW (고급형 복구)
+// ==========================
 
 function question(name){
 
-let pool=current.suspects[name];
-let msg=pool[Math.floor(Math.random()*pool.length)];
-
+let data=current.suspects[name];
+if(!data){
 document.getElementById("discussionLog").innerHTML+=
-`<div class="chat"><b>${name}</b>: ${msg}</div>`;
+`<div><b>${name}</b>: 저는 관련 없습니다.</div>`;
+return;
 }
 
-// =========================
-// 🗳 VOTE SYSTEM
-// =========================
+let msg=data.lies[Math.floor(Math.random()*data.lies.length)];
+
+document.getElementById("discussionLog").innerHTML+=
+`<div><b>${name}</b> (${data.base}): ${msg}</div>`;
+}
+
+// ==========================
+// VOTE
+// ==========================
 
 function vote(){
 
@@ -200,6 +224,6 @@ let pick=document.getElementById("voteSelect").value;
 
 document.getElementById("resultArea").innerHTML=
 (pick===murderer)
-?"✅ 정답 - 범인 검거 성공"
-:"❌ 오답 - 진범: "+murderer;
+?"✅ 정답"
+:"❌ 오답 / 범인: "+murderer;
 }

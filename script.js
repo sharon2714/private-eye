@@ -33,14 +33,14 @@ let currentCase = null;
 let murderer = "";
 
 // =======================
-// START GAME (핵심)
+// go Step(1) (핵심)
 // =======================
-function goStep(){
+function goStep(1){
 
 document.querySelector(".mode-box").style.display = "none";
 document.getElementById("gameArea").style.display = "block";
 
-goStep();
+goStep(1);
 generateCase();
 
 }
@@ -124,7 +124,7 @@ office:[
 let murderer = "";
 let currentCase = null;
 
-function goStep(){
+function goStep(1){
 
 document.querySelector(".mode-box").style.display = "none";
 

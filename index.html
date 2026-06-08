@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRIVATE EYE</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>PRIVATE EYE</h1>
+    <p class="subtitle">AI Simulation Detective Game</p>
+
+    <div id="screen">
+
+        <div class="case-file">
+            <h2>사건 파일</h2>
+            <p id="caseTitle"></p>
+            <p id="caseLocation"></p>
+            <p id="caseVictim"></p>
+            <p id="caseMotive"></p>
+
+            <button onclick="generateCase()">새 사건 생성</button>
+        </div>
+
+        <div class="detective-card">
+            <h2>탐정 역할</h2>
+            <p>당신은 탐정입니다.</p>
+            <p>사건을 조사하고 범인을 찾아내세요.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

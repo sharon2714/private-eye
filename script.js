@@ -1,136 +1,138 @@
-const cases = [
+const stories = [
 {
-title:"사라진 연구자료 사건",
+case:{
+title:"사라진 연구 데이터 사건",
 location:"대학교 연구실",
 victim:"김민수 교수",
 motive:"연구비 경쟁"
 },
+suspects:{
+"김도윤":["도서관에서 논문 작성 중","연구실 출입 안함","자료 정리 중"],
+"박서연":["회의 중","실험 데이터 분석","보고서 작성"],
+"이유진":["장비 점검","실험 진행","연구실에 있었음"]
+},
+clues:{
+lab:{
+"USB":"김도윤 연구 데이터 저장 장치",
+"노트":"박서연의 수정 흔적"
+},
+office:{
+"메일":"이유진과 금전 관련 갈등",
+"로그":"야간 연구실 접근 기록"
+}
+},
+murderer:"박서연"
+},
+
 {
-title:"호텔 살인 사건",
+case:{
+title:"호텔 독살 사건",
 location:"시내 호텔",
 victim:"배우 이현우",
 motive:"복수"
+},
+suspects:{
+"최현우":["취재 중","카페에 있었음","인터뷰 작성"],
+"정지민":["강의 중","학교에 있었음","과제 중"],
+"강민석":["회의 중","호텔 방문","업무 중"]
+},
+clues:{
+hall:{
+"CCTV":"강민석 호텔 출입",
+"발자국":"정지민 신발 패턴"
+},
+room:{
+"잔":"독 성분 검출",
+"전화":"최현우 마지막 통화"
+}
+},
+murderer:"강민석"
 }
 ];
 
-const clues = {
-lab:{
-"열쇠":"연구실 서랍을 여는 열쇠 (특정 연구실 접근 가능)",
-"메모":"피해자와 특정 인물 공동 연구 흔적"
-},
-hall:{
-"CCTV":"박서연이 사건 직전 복도 이동",
-"발자국":"김도윤 신발 사이즈와 일치"
-},
-storage:{
-"혈흔":"강한 저항 흔적",
-"장갑":"이유진 DNA 검출"
-},
-office:{
-"통화기록":"강민석과 마지막 통화",
-"메일":"최현우 협박 정황"
-}
-};
-
-const suspects = {
-"김도윤":["논문 작업 중이었습니다","연구실에 없었습니다","확실한 알리바이 있습니다"],
-"박서연":["회의 중이었습니다","연구실에 있었어요","기억이 확실하지 않습니다"],
-"최현우":["취재 중이었습니다","카페에 있었습니다","그건 오해입니다"],
-"정지민":["강의 중이었습니다","과제하고 있었습니다","학교에 있었습니다"],
-"이유진":["실험 중이었습니다","장비 점검 중이었습니다","연구실에 있었습니다"],
-"강민석":["회의 중이었습니다","업무 중이었습니다","통화는 업무였습니다"]
-};
-
-let murderer="";
-let currentCase;
+let current;
+let murderer;
 
 function startGame(){
 document.getElementById("gameArea").style.display="block";
-generateCase();
+generate();
 goStep(1);
 }
 
 function resetCase(){
-generateCase();
-document.getElementById("caseStatus").innerText =
-"🔄 새로운 사건이 생성되었습니다";
+generate();
+document.getElementById("caseStatus").innerText="새 사건 생성됨";
 goStep(1);
 }
 
-function generateCase(){
+function generate(){
 
-currentCase = cases[Math.floor(Math.random()*cases.length)];
-murderer = Object.keys(suspects)[Math.floor(Math.random()*6)];
+current = stories[Math.floor(Math.random()*stories.length)];
+murderer = current.murderer;
 
-document.getElementById("caseTitle").innerText=currentCase.title;
-document.getElementById("caseLocation").innerText=currentCase.location;
-document.getElementById("caseVictim").innerText=currentCase.victim;
-document.getElementById("caseMotive").innerText=currentCase.motive;
+document.getElementById("caseTitle").innerText=current.case.title;
+document.getElementById("caseLocation").innerText=current.case.location;
+document.getElementById("caseVictim").innerText=current.case.victim;
+document.getElementById("caseMotive").innerText=current.case.motive;
 
-document.getElementById("clueArea").innerHTML="";
-document.getElementById("detectiveNotes").innerHTML="";
-document.getElementById("discussionLog").innerHTML="";
-document.getElementById("resultArea").innerHTML="";
+let s="";
+let v="";
 
-// 용의자 UI 생성
-let suspectHTML="";
-let voteHTML="";
-
-Object.keys(suspects).forEach(name=>{
-suspectHTML+=`
-<div class="suspect-card">
-<h3>${name}</h3>
-<button onclick="question('${name}')">질문</button>
+Object.keys(current.suspects).forEach(n=>{
+s+=`<div class="suspect-card">
+<h3>${n}</h3>
+<button onclick="question('${n}')">질문</button>
 </div>`;
 
-voteHTML+=`<option>${name}</option>`;
+v+=`<option>${n}</option>`;
 });
 
-document.getElementById("suspectArea").innerHTML=suspectHTML;
-document.getElementById("voteSelect").innerHTML=voteHTML;
+document.getElementById("suspectArea").innerHTML=s;
+document.getElementById("voteSelect").innerHTML=v;
+
+document.getElementById("clueArea").innerHTML="";
+document.getElementById("discussionLog").innerHTML="";
+document.getElementById("resultArea").innerHTML="";
 }
 
-function goStep(step){
+function goStep(n){
 for(let i=1;i<=4;i++){
 let el=document.getElementById("step"+i);
 if(el) el.style.display="none";
 }
-document.getElementById("step"+step).style.display="block";
+document.getElementById("step"+n).style.display="block";
 }
 
-function investigate(place){
-const keys=Object.keys(clues[place]);
+function question(name){
+let pool=current.suspects[name];
+let msg=pool[Math.floor(Math.random()*pool.length)];
+
+document.getElementById("discussionLog").innerHTML+=
+`<div><b>${name}</b>: ${msg}</div>`;
+}
+
+function investigate(area){
+let keys=Object.keys(current.clues[area]||{});
 
 keys.forEach(k=>{
 let div=document.createElement("div");
 div.className="clue-item";
 div.innerText=k;
 
-div.onclick=function(){
-document.getElementById("clueDetail").innerText =
-k + " : " + clues[place][k];
-
-document.getElementById("detectiveNotes").innerHTML +=
-`<div>${k}</div>`;
+div.onclick=()=>{
+document.getElementById("clueDetail").innerText=
+k+" : "+current.clues[area][k];
 };
 
 document.getElementById("clueArea").appendChild(div);
 });
 }
 
-function question(name){
-let pool=suspects[name];
-let msg=pool[Math.floor(Math.random()*pool.length)];
-
-document.getElementById("discussionLog").innerHTML +=
-`<div><b>${name}</b>: ${msg}</div>`;
-}
-
 function vote(){
 let pick=document.getElementById("voteSelect").value;
 
-document.getElementById("resultArea").innerHTML =
+document.getElementById("resultArea").innerHTML=
 (pick===murderer)
-? "정답 - 범인 검거 성공"
-: "오답 - 진범: " + murderer;
+?"정답"
+:"오답 (범인: "+murderer+")";
 }

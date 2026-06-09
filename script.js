@@ -12,6 +12,8 @@ let questionUsed = 0;
 
 let foundClues = new Set();
 
+let askedQuestions = {};
+
 const suspectsList = [
 
 "김도윤",
@@ -955,6 +957,8 @@ questionUsed=0;
 
 foundClues.clear();
 
+askedQuestions = {};
+
 // 사건파일
 
 document.getElementById(
@@ -1216,15 +1220,41 @@ updateStatus();
 const suspect=
 current.suspects[name];
 
-let answer=
+if(!askedQuestions[name]){
+    askedQuestions[name] = [];
+}
 
-suspect.answers[
-Math.floor(
-Math.random()
-*
-suspect.answers.length
-)
-];
+const availableAnswers =
+suspect.answers.filter(
+    answer =>
+    !askedQuestions[name].includes(answer)
+);
+
+let answer;
+
+if(availableAnswers.length > 0){
+
+    answer =
+    availableAnswers[
+        Math.floor(
+            Math.random()
+            *
+            availableAnswers.length
+        )
+    ];
+
+    askedQuestions[name].push(answer);
+
+}else{
+
+    answer =
+`질문:
+더 하실 말씀 있습니까?
+
+답변:
+이미 알고 있는 내용은 모두 말씀드렸습니다.`;
+
+}
 
 // 범인 흔들림
 

@@ -1229,6 +1229,12 @@ askedQuestions[name] = 0;
 
 let answer;
 
+if(!askedQuestions[name]){
+    askedQuestions[name] = 0;
+}
+
+let answer;
+
 if(
 askedQuestions[name]
 <
@@ -1252,6 +1258,7 @@ answer =
 이미 알고 있는 내용은 모두 말씀드렸습니다.`;
 
 }
+
 // 범인 흔들림 (중복 방지)
 
 if(

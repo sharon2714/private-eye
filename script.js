@@ -1217,11 +1217,14 @@ updateStatus();
 
 }
 
-const suspect=
+const suspect =
 current.suspects[name];
 
-if(askedQuestions[name] === undefined){
-    askedQuestions[name] = 0;
+if(
+askedQuestions[name]
+=== undefined
+){
+askedQuestions[name] = 0;
 }
 
 let answer;
@@ -1248,17 +1251,7 @@ answer =
 답변:
 이미 알고 있는 내용은 모두 말씀드렸습니다.`;
 
-}else{
-
-    answer =
-`질문:
-더 하실 말씀 있습니까?
-
-답변:
-이미 알고 있는 내용은 모두 말씀드렸습니다.`;
-
 }
-
 // 범인 흔들림 (중복 방지)
 
 if(

@@ -1224,28 +1224,36 @@ if(!askedQuestions[name]){
     askedQuestions[name] = [];
 }
 
-const availableAnswers =
-suspect.answers.filter(
-    answer =>
-    !askedQuestions[name].includes(answer)
-);
+if(!askedQuestions[name]){
+    askedQuestions[name] = 0;
+}
 
 let answer;
 
-if(availableAnswers.length > 0){
+if(
+askedQuestions[name]
+<
+suspect.answers.length
+){
 
-    answer =
-    availableAnswers[
-        Math.floor(
-            Math.random()
-            *
-            availableAnswers.length
-        )
-    ];
+answer =
+suspect.answers[
+askedQuestions[name]
+];
 
-    askedQuestions[name].push(answer);
+askedQuestions[name]++;
 
 }else{
+
+answer =
+`질문:
+더 하실 말씀 있습니까?
+
+답변:
+이미 알고 있는 내용은 모두 말씀드렸습니다.`;
+
+}
+else{
 
     answer =
 `질문:
@@ -1256,7 +1264,7 @@ if(availableAnswers.length > 0){
 
 }
 
-// 범인 흔들림
+// 범인 흔들림 (중복 방지)
 
 if(
 name===murderer
@@ -1265,6 +1273,10 @@ questionUsed>=2
 &&
 Math.random()<0.7
 ){
+
+if(!askedQuestions[name+"_nervous"]){
+    askedQuestions[name+"_nervous"] = [];
+}
 
 const nervous=[
 
@@ -1292,15 +1304,29 @@ const nervous=[
 
 ];
 
+const availableNervous =
+nervous.filter(
+n =>
+!askedQuestions[name+"_nervous"].includes(n)
+);
+
+if(availableNervous.length>0){
+
 answer=
-nervous[
+availableNervous[
 Math.floor(
 Math.random()
 *
-nervous.length
+availableNervous.length
 )
 ];
 
+askedQuestions[name+"_nervous"].push(answer);
+
+}
+
+}
+    
 }
 
 document.getElementById(

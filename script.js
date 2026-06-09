@@ -1220,11 +1220,7 @@ updateStatus();
 const suspect=
 current.suspects[name];
 
-if(!askedQuestions[name]){
-    askedQuestions[name] = [];
-}
-
-if(!askedQuestions[name]){
+if(askedQuestions[name] === undefined){
     askedQuestions[name] = 0;
 }
 

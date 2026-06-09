@@ -1397,11 +1397,9 @@ ${murderer}
 
 }else{
 
-score=
-Math.max(
-0,
-score-30
-);
+score = 0;
+
+grade = "💀 F 등급";
 
 document.getElementById(
 "resultArea"

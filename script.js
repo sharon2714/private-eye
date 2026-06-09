@@ -1229,12 +1229,6 @@ askedQuestions[name] = 0;
 
 let answer;
 
-if(!askedQuestions[name]){
-    askedQuestions[name] = 0;
-}
-
-let answer;
-
 if(
 askedQuestions[name]
 <
@@ -1259,76 +1253,9 @@ answer =
 
 }
 
-// 범인 흔들림 (중복 방지)
-
-if(
-name===murderer
-&&
-questionUsed>=2
-&&
-Math.random()<0.7
-){
-
-if(!askedQuestions[name+"_nervous"]){
-    askedQuestions[name+"_nervous"] = [];
-}
-
-const nervous=[
-
-`질문:
-그 시간에 정확히 무엇을 했습니까?
-
-답변:
-...왜 계속 저를 의심하는 거죠?
-이미 말씀드렸잖습니까.`,
-
-`질문:
-이 단서를 설명할 수 있습니까?
-
-답변:
-그건...
-잘 기억나지 않습니다.
-중요한 내용은 아닙니다.`,
-
-`질문:
-피해자와 갈등이 있었습니까?
-
-답변:
-누구나 갈등은 있습니다.
-하지만 그게 범죄를 의미하는 건 아니잖습니까.`
-
-];
-
-const availableNervous =
-nervous.filter(
-n =>
-!askedQuestions[name+"_nervous"].includes(n)
-);
-
-if(availableNervous.length>0){
-
-answer=
-availableNervous[
-Math.floor(
-Math.random()
-*
-availableNervous.length
-)
-];
-
-askedQuestions[name+"_nervous"].push(answer);
-
-}
-
-}
-    
-}
-
 document.getElementById(
 "discussionLog"
-).innerHTML
-
-+=
+).innerHTML +=
 
 `
 <div class="chat-card">

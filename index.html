@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,14 +19,25 @@
 AI Detective Simulation Game
 </p>
 
+<!-- 시작 화면 -->
+
 <div class="mode-box">
 
 <h2>AI Simulation Mode</h2>
 
 <p class="intro-text">
-이 게임은 교수님 체험용 1인 추리 시뮬레이션입니다.<br>
-원작 PRIVATE EYE는 7인이 함께 플레이하는 추리 게임이지만,<br>
-본 버전은 NPC와 함께 플레이할 수 있도록 구현된 체험용 프로토타입입니다.
+
+본 게임은 원래 7인이 각자 역할을 맡아
+채팅과 토론을 통해 범인을 찾는
+멀티플레이 추리 게임입니다.
+
+현재 버전은 교수님께서
+혼자 게임을 체험하실 수 있도록 제작한
+1인용 프로토타입입니다.
+
+NPC 용의자들과 대화를 나누며
+단서를 수집하고 범인을 추리해보세요.
+
 </p>
 
 <button onclick="startGame()">
@@ -41,6 +51,8 @@ AI Detective Simulation Game
 <p id="caseStatus"></p>
 
 </div>
+
+<!-- 게임 영역 -->
 
 <div id="gameArea" style="display:none;">
 
@@ -67,7 +79,7 @@ CONFIDENTIAL
 </div>
 
 <button onclick="goStep(2)">
-현장 조사 시작
+사건 현장 확인
 </button>
 
 </div>
@@ -76,25 +88,51 @@ CONFIDENTIAL
 
 <div id="step2" class="step">
 
-<h2>🔍 현장 조사</h2>
+<h2>🚨 사건 현장 보고서</h2>
+
+<div class="crime-scene-box">
+
+<h3>현장 개요</h3>
+
+<p id="sceneLocation"></p>
+
+<p id="sceneTime"></p>
+
+<p id="sceneCause"></p>
+
+<p id="sceneCondition"></p>
+
+</div>
+
+<div class="crime-scene-story">
+
+<h3>현장 묘사</h3>
+
+<p id="sceneDescription"></p>
+
+</div>
+
+<button onclick="goStep(3)">
+단서 조사 시작
+</button>
+
+</div>
+
+<!-- STEP 3 -->
+
+<div id="step3" class="step">
+
+<h2>🔍 단서 조사</h2>
 
 <div class="status-bar">
 
-<div id="clueCount">
-남은 단서 분석 : 2/2
-</div>
+<div id="clueCount"></div>
 
-<div id="questionCount">
-남은 질문 : 4/4
-</div>
+<div id="questionCount"></div>
 
-<div id="scoreBoard">
-점수 : 100
-</div>
+<div id="scoreBoard"></div>
 
 </div>
-
-<h3>발견된 단서</h3>
 
 <div id="clueArea"></div>
 
@@ -103,43 +141,40 @@ CONFIDENTIAL
 <h3>단서 분석</h3>
 
 <div id="clueDetail">
+
 단서를 선택하세요.
+
 </div>
 
 </div>
 
 <div class="note-box">
 
-<h3>탐정 수첩</h3>
+<h3>📓 탐정 수첩</h3>
 
 <div id="detectiveNotes"></div>
 
 </div>
 
-<button onclick="goStep(3)">
+<button onclick="goStep(4)">
 용의자 조사
 </button>
 
 </div>
-<!-- STEP 3 -->
 
-<div id="step3" class="step">
+<!-- STEP 4 -->
+
+<div id="step4" class="step">
 
 <h2>👥 용의자 조사</h2>
 
 <div class="status-bar">
 
-<div id="clueCountStep3">
-남은 단서 분석 : 2/2
-</div>
+<div id="clueCountStep4"></div>
 
-<div id="questionCountStep3">
-남은 질문 : 4/4
-</div>
+<div id="questionCountStep4"></div>
 
-<div id="scoreBoardStep3">
-점수 : 100
-</div>
+<div id="scoreBoardStep4"></div>
 
 </div>
 
@@ -149,20 +184,22 @@ CONFIDENTIAL
 
 <div id="discussionLog"></div>
 
-<button onclick="goStep(4)">
+<button onclick="goStep(5)">
 최종 투표
 </button>
 
 </div>
+<!-- STEP 5 -->
 
-<!-- STEP 4 -->
-
-<div id="step4" class="step">
+<div id="step5" class="step">
 
 <h2>🗳 최종 투표</h2>
 
-<p>
-가장 의심되는 용의자를 선택하세요.
+<p class="vote-guide">
+
+수집한 단서와 용의자 진술을 종합하여
+범인을 지목하세요.
+
 </p>
 
 <select id="voteSelect"></select>
@@ -171,7 +208,65 @@ CONFIDENTIAL
 범인 지목
 </button>
 
+</div>
+
+<!-- STEP 6 -->
+
+<div id="step6" class="step">
+
+<h2>📖 사건의 전말</h2>
+
+<div class="story-box">
+
+<h3>사건 재구성</h3>
+
+<div id="endingStory"></div>
+
+</div>
+
+<div class="timeline-box">
+
+<h3>🕒 사건 타임라인</h3>
+
+<div id="timelineArea"></div>
+
+</div>
+
+<div class="suspect-summary-box">
+
+<h3>🔎 용의자 정리</h3>
+
+<div id="suspectSummary"></div>
+
+</div>
+
+<button onclick="showResult()">
+결과 확인
+</button>
+
+</div>
+
+<!-- STEP 7 -->
+
+<div id="step7" class="step">
+
+<h2>🏆 수사 결과</h2>
+
 <div id="resultArea"></div>
+
+<div class="final-score-box">
+
+<h3>추리 평가</h3>
+
+<p id="finalScore"></p>
+
+<p id="finalGrade"></p>
+
+</div>
+
+<button onclick="resetCase()">
+새 사건 생성
+</button>
 
 </div>
 
